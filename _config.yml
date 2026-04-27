@@ -1,0 +1,17 @@
+title: マーケキャッチアップ
+description: 中小企業のマーケ担当者向け - SNS運用・AIマーケ最新情報の深読みレポート
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-optional-front-matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+exclude:
+  - scripts/
+  - logs/
+  - Raw/
+  - .obsidian/
+  - .claude/
+  - "*.skill"

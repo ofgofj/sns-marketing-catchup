@@ -1,0 +1,39 @@
+name: RSS記事収集
+
+on:
+  schedule:
+    - cron: '0 21 * * *'  # 毎日6:00 JST (前日21:00 UTC)
+  workflow_dispatch:  # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ github.token }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: RSSフィード取得＆記事保存
+        run: python3 scripts/rss_collect.py
+
+      - name: コミット＆プッシュ
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Raw/
+          if git diff --cached --quiet; then
+            echo "新しい記事なし"
+          else
+            ARTICLE_COUNT=$(find Raw -name "*.md" ! -name "index.md" | wc -l)
+            git commit -m "RSS自動収集 $(TZ=Asia/Tokyo date +%Y-%m-%d): ${ARTICLE_COUNT}件"
+            git push origin main
+          fi

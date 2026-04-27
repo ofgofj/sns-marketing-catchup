@@ -1,0 +1,46 @@
+name: Google Chat通知
+
+on:
+  schedule:
+    - cron: '0 21 * * 0-4'  # 平日6:00 JST (前日21:00 UTC)
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 記事数を集計して通知
+        env:
+          WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+        run: |
+          # 今日の日付(JST)
+          TODAY=$(date -u -d '+9 hours' +%Y-%m-%d)
+
+          # Web記事数: 最新のArchiveフォルダ内のmd数（index.md除く）= RSS収集数
+          LATEST_ARCHIVE=$(find Archive -type d -name "*.*.??" 2>/dev/null | sort -r | head -1)
+          WEB_COUNT=0
+          if [ -n "$LATEST_ARCHIVE" ]; then
+            WEB_COUNT=$(find "$LATEST_ARCHIVE" -name "*.md" ! -name "index.md" -type f 2>/dev/null | wc -l)
+          fi
+
+          # Summary（充実レポート）リンク取得
+          SUMMARY_LATEST=$(find Summary -name "*.md" -type f ! -name "index.md" 2>/dev/null | sort -r | head -1)
+          SUMMARY_SECTION=""
+          if [ -n "$SUMMARY_LATEST" ]; then
+            SUMMARY_PATH=$(echo "$SUMMARY_LATEST" | sed 's|^|/|')
+            SUMMARY_SECTION="\n\n📊 *本日の深読みレポート*\nhttps://ofgofj.github.io/sns-marketing-catchup${SUMMARY_PATH%.md}/"
+          fi
+
+          # Google Chatに送信
+          curl -s -X POST -H "Content-Type: application/json" \
+            -d "{
+              \"text\": \"📰 *マーケキャッチアップ ${TODAY}*\n\n本日のマーケ・SNS運用記事: ${WEB_COUNT}件\n\n中小企業向けマーケ最新情報の深読みレポートです。\nhttps://ofgofj.github.io/sns-marketing-catchup/${SUMMARY_SECTION}\"
+            }" \
+            "$WEBHOOK_URL"
+
+          echo "通知送信完了"

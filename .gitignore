@@ -1,0 +1,13 @@
+logs/
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/zept-sns-marketing-catchup/
+!.claude/skills/zept-sns-marketing-catchup/**
+.obsidian/
+.tmp-chrome-profile/
+.chrome-debug
+node_modules/
+package.json
+package-lock.json
+*.skill
