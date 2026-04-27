@@ -37,7 +37,16 @@ ZeptのAIコンサル提案にどう転用できるかを1〜2文で添える。
 例：
 > 「クライアントに『月3万円のCanva＋ChatGPT Plus組み合わせで、SNS投稿制作工数を週20h→週5hに削減』を提案。1人当たり月15時間×時給3,000円＝月4.5万円コスト減を見える化」
 
-### STEP 4: ファイル出力
+### STEP 4: ファクトチェック（zept-veritas呼び出し）
+レポート草稿を `zept-veritas` スキルに渡し、以下を検証する：
+- 引用した数値（CVR・売上・コストなど）の真偽
+- 企業名・サービス名・URL の正確性
+- 「過半数」「業界初」など断定表現の根拠
+- 自分が付加した「コンサル活用法」のコスト試算が妥当か
+
+**veritas からの指摘事項を反映してから次STEPへ進む**。修正不要なら通過。
+
+### STEP 5: ファイル出力
 
 #### Archive（日次素材）
 パス: `Archive/{年度}/{月}月/{YYYY.M.DD}/index.md`
@@ -53,12 +62,13 @@ ZeptのAIコンサル提案にどう転用できるかを1〜2文で添える。
 - 図表は使わず、文章中心
 - 末尾に「今日のひとこと」（1段落）を入れる
 
-### STEP 5: git push
+### STEP 6: git push
 ```bash
 git add Archive/ Summary/
 git commit -m "マーケキャッチアップ {YYYY-MM-DD}"
 git push origin main
 ```
+※ push 後、GitHub Actions の chat-notify.yml が自動でGoogle Chat通知（平日のみ）。
 
 ## レポート文体ルール
 - 結論ファースト
