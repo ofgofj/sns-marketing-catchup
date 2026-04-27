@@ -82,5 +82,5 @@ git push origin main
 - Summary/{年度}/{月}月/{YYYY.M.DD}.md 生成（{文字数}字）
 - git push 完了
 
-GitHub Pages: https://ofgofj.github.io/sns-marketing-catchup/{YYYY.M.DD}/
+GitHub Pages: https://ofgofj.github.io/sns_marketing_catchup/{YYYY.M.DD}/
 ```

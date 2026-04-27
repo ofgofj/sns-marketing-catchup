@@ -58,7 +58,7 @@
 - ZeptのAIコンサル提案資料の元ネタ
 
 ## セットアップ手順
-1. このリポジトリを GitHub に push（リポ名: `sns-marketing-catchup`）
+1. このリポジトリを GitHub に push（リポ名: `sns_marketing_catchup`）
 2. GitHub Pages を有効化（Settings → Pages → Source: main / `/`）
 3. Secrets に `GOOGLE_CHAT_WEBHOOK` を登録
 4. Actions の rss-collect を手動で1回実行して動作確認

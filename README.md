@@ -51,7 +51,7 @@ cd C:/Users/yfuji/sns_marketing_catchup
 git init
 git add .
 git commit -m "初期構築"
-gh repo create sns-marketing-catchup --public --source=. --push
+gh repo create sns_marketing_catchup --public --source=. --push
 ```
 
 ### Step 2: GitHub Pages を有効化

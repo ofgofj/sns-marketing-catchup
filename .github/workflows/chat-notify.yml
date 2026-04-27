@@ -33,13 +33,13 @@ jobs:
           SUMMARY_SECTION=""
           if [ -n "$SUMMARY_LATEST" ]; then
             SUMMARY_PATH=$(echo "$SUMMARY_LATEST" | sed 's|^|/|')
-            SUMMARY_SECTION="\n\n📊 *本日の深読みレポート*\nhttps://ofgofj.github.io/sns-marketing-catchup${SUMMARY_PATH%.md}/"
+            SUMMARY_SECTION="\n\n📊 *本日の深読みレポート*\nhttps://ofgofj.github.io/sns_marketing_catchup${SUMMARY_PATH%.md}/"
           fi
 
           # Google Chatに送信
           curl -s -X POST -H "Content-Type: application/json" \
             -d "{
-              \"text\": \"📰 *マーケキャッチアップ ${TODAY}*\n\n本日のマーケ・SNS運用記事: ${WEB_COUNT}件\n\n中小企業向けマーケ最新情報の深読みレポートです。\nhttps://ofgofj.github.io/sns-marketing-catchup/${SUMMARY_SECTION}\"
+              \"text\": \"📰 *マーケキャッチアップ ${TODAY}*\n\n本日のマーケ・SNS運用記事: ${WEB_COUNT}件\n\n中小企業向けマーケ最新情報の深読みレポートです。\nhttps://ofgofj.github.io/sns_marketing_catchup/${SUMMARY_SECTION}\"
             }" \
             "$WEBHOOK_URL"
 
