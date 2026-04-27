@@ -21,29 +21,14 @@ jobs:
           # 今日の日付(JST)
           TODAY=$(date -u -d '+9 hours' +%Y-%m-%d)
 
-          # Web記事数: 最新のArchiveフォルダ内のmd数（index.md除く）= RSS収集数
-          LATEST_ARCHIVE=$(find Archive -type d -name "*.*.??" 2>/dev/null | sort -r | head -1)
-          WEB_COUNT=0
-          if [ -n "$LATEST_ARCHIVE" ]; then
-            WEB_COUNT=$(find "$LATEST_ARCHIVE" -name "*.md" ! -name "index.md" -type f 2>/dev/null | wc -l)
-          fi
+          # 今日の収集記事数（Raw/直下のmdファイル、index.md除く）
+          RAW_COUNT=$(find Raw -maxdepth 1 -name "*.md" ! -name "index.md" -type f 2>/dev/null | wc -l)
 
-          # 最新の深読みレポート（Summary）のURLを取得
-          SUMMARY_LATEST=$(find Summary -name "*.md" -type f ! -name "index.md" 2>/dev/null | sort -r | head -1)
-          if [ -n "$SUMMARY_LATEST" ]; then
-            # .md → .html に置換、先頭にスラッシュ追加
-            SUMMARY_URL_PATH="/${SUMMARY_LATEST%.md}.html"
-            REPORT_URL="https://ofgofj.github.io/sns_marketing_catchup${SUMMARY_URL_PATH}"
-          else
-            # レポートなしの場合はトップページにフォールバック
-            REPORT_URL="https://ofgofj.github.io/sns_marketing_catchup/"
-          fi
-
-          # Google Chatに送信（リンクは深読みレポート1本のみ）
+          # Google Chatに送信（ai-blockchain形式、リンク1本）
           curl -s -X POST -H "Content-Type: application/json" \
             -d "{
-              \"text\": \"📰 *マーケキャッチアップ ${TODAY}*\n\n本日のマーケ・SNS運用記事: ${WEB_COUNT}件\n中小企業向け深読みレポートはこちら↓\n${REPORT_URL}\"
+              \"text\": \"マーケキャッチアップ ${TODAY}\n今日は${RAW_COUNT}件まとめました。気になる方だけどうぞ。\n📖 https://ofgofj.github.io/sns_marketing_catchup/\"
             }" \
             "$WEBHOOK_URL"
 
-          echo "通知送信完了: ${REPORT_URL}"
+          echo "通知送信完了 (${RAW_COUNT}件)"
