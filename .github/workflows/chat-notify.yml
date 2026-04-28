@@ -1,8 +1,10 @@
 name: Google Chat通知
 
 on:
-  schedule:
-    - cron: '0 21 * * 0-4'  # 平日6:00 JST (前日21:00 UTC)
+  push:
+    branches: [main]
+    paths:
+      - 'Summary/**'
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
