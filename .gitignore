@@ -1,6 +1,8 @@
 logs/
 .claude/*
 !.claude/skills/
+!.claude/commands/
+!.claude/commands/**
 .claude/skills/*
 !.claude/skills/zept-sns-marketing-catchup/
 !.claude/skills/zept-sns-marketing-catchup/**
