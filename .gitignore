@@ -6,12 +6,7 @@ logs/
 .claude/skills/*
 !.claude/skills/zept-sns-marketing-catchup/
 !.claude/skills/zept-sns-marketing-catchup/**
-!.claude/skills/marketing-notebooklm-audio/
-!.claude/skills/marketing-notebooklm-audio/**
 
-# NotebookLM 音声概要のローカル参照URLは git に含めない
-Summary/**/*-notebooklm-audio-url.txt
-Summary/**/*-notebooklm-artifact-id.txt
 .obsidian/
 .tmp-chrome-profile/
 .chrome-debug
