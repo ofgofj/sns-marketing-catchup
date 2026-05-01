@@ -99,15 +99,6 @@ git push origin main
 ```
 push後の動き（自動）：
 - GitHub Pages がビルド → https://ofgofj.github.io/sns_marketing_catchup/ に反映
-- chat-notify.yml が `Summary/**` 変更検知で発火 → Google Chat 通知（push後すぐ）
-- 通知フォーマット（ai-blockchain統一形式）：
-  ```
-  マーケキャッチアップ YYYY-MM-DD
-  今日はN件まとめました。気になる方だけどうぞ。
-  📖 https://ofgofj.github.io/sns_marketing_catchup/
-  ```
-
-**重要**: `Summary/` を必ず含めて push すること（含めないと通知が飛ばない）。
 
 ## レポート文体ルール
 - 結論ファースト

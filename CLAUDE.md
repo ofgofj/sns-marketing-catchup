@@ -15,7 +15,6 @@
 [Summary/YYYY年度/M月/YYYY.M.DD.md（共有用の充実レポート）]
    ↓ git push
 [GitHub Pages で公開]
-   ↓ chat-notify.yml が Google Chat に通知
 ```
 
 ## ディレクトリ構成
@@ -23,7 +22,6 @@
 | パス | 役割 |
 |---|---|
 | `.github/workflows/rss-collect.yml` | 毎日6:00 JSTにRSS自動取得 |
-| `.github/workflows/chat-notify.yml` | 平日6:00 JSTにGoogle Chat通知 |
 | `scripts/rss_collect.py` | RSS取得本体（Python標準ライブラリのみ） |
 | `Raw/` | RSS取得記事の自動保存先（gitignoreではない、コミット対象） |
 | `Archive/YYYY年度/M月/YYYY.M.DD/` | 日次の深読みレポート素材 |
@@ -60,5 +58,4 @@
 ## セットアップ手順
 1. このリポジトリを GitHub に push（リポ名: `sns_marketing_catchup`）
 2. GitHub Pages を有効化（Settings → Pages → Source: main / `/`）
-3. Secrets に `GOOGLE_CHAT_WEBHOOK` を登録
-4. Actions の rss-collect を手動で1回実行して動作確認
+3. Actions の rss-collect を手動で1回実行して動作確認

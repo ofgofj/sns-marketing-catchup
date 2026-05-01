@@ -19,7 +19,6 @@ Archive/YYYY年度/M月/YYYY.M.DD/  （日次素材）
 Summary/YYYY年度/M月/YYYY.M.DD.md  （共有用★メイン成果物）
   ↓ git push
 GitHub Pages 公開
-  ↓ chat-notify.yml が Google Chat 通知
 ```
 
 ## 3. ディレクトリ構成
@@ -27,8 +26,7 @@ GitHub Pages 公開
 ```
 .
 ├── .github/workflows/
-│   ├── rss-collect.yml    ← 毎日6:00 JSTにRSS自動取得
-│   └── chat-notify.yml     ← 平日6:00 JSTにGoogle Chat通知
+│   └── rss-collect.yml    ← 毎日6:00 JSTにRSS自動取得
 ├── scripts/
 │   └── rss_collect.py      ← RSS取得本体（Python標準ライブラリのみ）
 ├── Raw/                    ← RSS取得記事の自動保存先
@@ -57,13 +55,10 @@ gh repo create sns_marketing_catchup --public --source=. --push
 ### Step 2: GitHub Pages を有効化
 リポジトリ Settings → Pages → Source: `main` / `/ (root)` → Save
 
-### Step 3: Secrets 登録
-リポジトリ Settings → Secrets and variables → Actions → `GOOGLE_CHAT_WEBHOOK` を新規登録（既存ai-catchupと同じURLを流用可）
-
-### Step 4: 動作確認
+### Step 3: 動作確認
 Actions タブ → 「RSS記事収集」 → Run workflow を手動実行 → Raw/ にmdファイルが追加されることを確認
 
-### Step 5: ローカル運用
+### Step 4: ローカル運用
 1. ObsidianのVaultにこのフォルダを追加
 2. 毎朝GitHubからpullで同期
 3. Claude Codeで「マーケキャッチアップ」と発話 → スキル起動
