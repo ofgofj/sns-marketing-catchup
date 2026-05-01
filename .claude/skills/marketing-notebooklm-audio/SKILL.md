@@ -250,16 +250,23 @@ URL は以下から参照する:
 
 ### STEP 8: Chatwork通知（ルームID 376976342 固定 = ユーザーのマイチャット）
 
-生成成功後、**自動で Chatwork ルーム `376976342` に共有URLだけを送信**する。日付なし、装飾なし、URL1行のみ。Chatwork側でURLは自動リンク化される。
+生成成功後、**自動で Chatwork ルーム `376976342` に通知**する。フォーマットは固定:
+
+```
+今日のSNSニュースです YYYY-MM-DD
+<SHARE_URL>
+```
+
+1行目に「今日のSNSニュースです」＋ 日付（`YYYY-MM-DD`）、2行目に共有URL。Chatwork側でURLは自動リンク化される。
 
 **⚠ 重要:** ルームID `376976342` はユーザー（藤井悠真さん）のマイチャットそのもの。Chatwork API `/v2/me` の `room_id` フィールドで確認可能。「マイチャットに送って」と言われた場合もこのIDで対応すれば二重送信不要。
 
 実装（bash から Node.js を呼ぶ。curl は文字化けリスクあり & APIトークンは `~/.bashrc` の `CHATWORK_API_TOKEN` から読む）:
 
 ```bash
-bash -c 'source ~/.bashrc && SHARE_URL="'"$SHARE_URL"'" node -e "
+bash -c 'source ~/.bashrc && SHARE_URL="'"$SHARE_URL"'" DATE_STR="'"$DATE_STR"'" node -e "
 const https = require(\"https\");
-const body = process.env.SHARE_URL;
+const body = \"今日のSNSニュースです \" + process.env.DATE_STR + \"\\n\" + process.env.SHARE_URL;
 const params = \"body=\" + encodeURIComponent(body);
 const payload = Buffer.from(params, \"utf8\");
 const req = https.request({
