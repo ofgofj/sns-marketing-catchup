@@ -4,7 +4,7 @@ description: >
   マーケキャッチアップの当日Summary MDをソースとしてNotebookLMに登録し、
   「音声概要（Audio Overview / podcast）」を中小企業マーケ担当者向けプロンプトで生成、
   公開リンクを Summary/YYYY年度/M月/YYYY.M.DD-notebooklm-audio-url.txt に保存し、
-  最後に Chatwork マイチャット（376976342）にURLだけを自動送信するスキル（一気通貫）。
+  最後に Chatwork マイチャット（376976342）に「今日のSNSニュースです YYYY-MM-DD」＋URL を自動送信するスキル（一気通貫）。
   「マーケ音声生成」「マケ音声」「マーケキャッチアップの音声」「マーケnotebook」と言われたら使う。
   zept-sns-marketing-catchup（/marketing-catchup）が完了した後に実行する。
   ※ 参考元: ai-blockchain側の bc-notebooklm-audio。本スキルは中小企業マーケ担当者向けプロンプトに置換した版。
